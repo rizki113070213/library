@@ -1,0 +1,8 @@
+{
+  "name": "library",
+  "private": true,
+  "dependencies": {},
+  "scripts": {
+    "postinstall": "cd client && yarn install"
+  }
+}
