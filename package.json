@@ -2,7 +2,11 @@
   "name": "library",
   "private": true,
   "dependencies": {},
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
   "scripts": {
-    "postinstall": "cd client && yarn install"
+    "postinstall": "cd client && npm install"
   }
 }
