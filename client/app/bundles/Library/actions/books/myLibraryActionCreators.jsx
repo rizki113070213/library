@@ -1,8 +1,8 @@
-/* eslint-disable import/prefer-default-export */
+import { MY_LIBRARY_FETCH_BOOKS } from '../../constants/books/myLibraryConstants';
 
-import { MY_LIBRARY_NAME_UPDATE } from '../../constants/books/myLibraryConstants';
-
-export const updateName = (text) => ({
-  type: MY_LIBRARY_NAME_UPDATE,
-  text,
-});
+export function fetchBooks() {
+  return {
+    type: MY_LIBRARY_FETCH_BOOKS,
+    payload: this.state.books
+  };
+};
