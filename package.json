@@ -6,7 +6,9 @@
     "npm": "4.4.4",
     "yarn": "0.22.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
   "cacheDirectories": [
     "node_modules",
     "client/node_modules"

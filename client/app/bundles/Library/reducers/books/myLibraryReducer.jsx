@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
-import { MY_LIBRARY_NAME_UPDATE } from '../../constants/books/myLibraryConstants';
+import { MY_LIBRARY_FETCH_BOOKS } from '../../constants/books/myLibraryConstants';
 
-const name = (state = '', action) => {
+const books = (state = [], action) => {
   switch (action.type) {
-    case MY_LIBRARY_NAME_UPDATE:
-      return action.text;
+    case MY_LIBRARY_FETCH_BOOKS:
+      return action.payload;
     default:
       return state;
   }
 };
 
-const myLibraryReducer = combineReducers({ name });
+const myLibraryReducer = combineReducers({ books });
 
 export default myLibraryReducer;
