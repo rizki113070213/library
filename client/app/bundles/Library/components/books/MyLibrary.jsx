@@ -1,20 +1,47 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-// import BookTable from './BookTable';
+import BookTable from './BookTable';
+import Search from './Search';
+import NewBook from './NewBook';
 
 export default class MyLibrary extends Component {
-  renderList(){
-    return _.map(this.props.books, book => {
-      return(
-        <tr key={book.id} >
-          <td>{book.title}</td>
-          <td>{book.author}</td>
-          <td>{book.genre}</td>
-          <td>{book.publisher}</td>
-          <td>{book.synopsis}</td>
-        </tr>
-      );
-    });
+  constructor(props){
+    super(props);
+    this.state = {
+      books: this.props.books,
+      search: '',
+      title: '',
+      author: '',
+      genre: '',
+      publisher: '',
+      synopsis: '',
+    }
+  }
+
+  handleSearch(e){
+    this.setState({search: e.target.value});
+  }
+
+  handleUserInput(obj){
+    this.setState(obj);
+  }
+
+  handleFormSubmit(){
+    const book = {title: this.state.title,
+                  author: this.state.author,
+                  genre: this.state.genre,
+                  publisher: this.state.publisher,
+                  synopsis: this.state.synopsis};
+    $.post('/books',
+           {book: book})
+           .done((data) => {
+             this.addNewBook(data);
+           });
+  }
+
+  addNewBook(book){
+    const books = React.addons.update(this.state.books, {$push: [book]});
+    this.setState({books: books});
   }
 
   render() {
@@ -26,42 +53,23 @@ export default class MyLibrary extends Component {
         </div>
 
         <div className="row">
+          <div className="col-md-4">
+            <Search />
+          </div>
+          <div className="col-md-8">
+            <NewBook title={this.state.title}
+                     author={this.state.author}
+                     genre={this.state.genre}
+                     publisher={this.state.publisher} />
+          </div>
+        </div>
+
+        <div className="row">
           <div className="col-md-12">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th className="col-md-3">Title</th>
-                  <th className="col-md-2">Author</th>
-                  <th className="col-md-2">Genre</th>
-                  <th className="col-md-3">Publisher</th>
-                  <th className="col-md-2">Synopsis</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.renderList()}
-              </tbody>
-            </table>
+            <BookTable books={this.props.books}/>
           </div>
         </div>
       </div>
     );
   }
-
-  // render() {
-  //   var bookTable = this.props.books;
-  //   return(
-  //     <div className="container">
-  //       <div className="jumbotron">
-  //         <h1>ReactJs Library</h1>
-  //         <p>by M.Rizki</p>
-  //       </div>
-  //
-  //       <div className="row">
-  //         <div className="col-md-12">
-  //           <BookTable bookTable={bookTable}/>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 }

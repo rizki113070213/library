@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root 'hello_world#index'
-  get 'books/index'
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'books#index'
+  resources :books, only: [:index, :create] do
+    get :search, on: :collection
+  end
 end

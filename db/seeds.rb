@@ -8,6 +8,6 @@
                 author: author,
                 genre: genre,
                 publisher: publisher,
-                synopsis: "This book about ..."
+                synopsis: "This book is about ..."
   )
 end

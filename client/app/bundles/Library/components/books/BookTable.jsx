@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import Book from './Book';
+import _ from 'lodash';
 
 export default class BookTable extends Component {
+  renderList(){
+    return _.map(this.props.books, book => {
+      return(
+        <Book book={book} key={book.id}  />
+      );
+    });
+  }
+
   render(){
-    books = this.props.bookTable;
     return(
       <table className="table table-striped">
         <thead>
@@ -15,7 +23,7 @@ export default class BookTable extends Component {
             <th className="col-md-2">Synopsis</th>
           </tr>
         </thead>
-        <Book books={books} />
+        {this.renderList()}
       </table>
     );
   }
