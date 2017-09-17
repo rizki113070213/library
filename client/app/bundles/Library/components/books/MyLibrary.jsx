@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import BookTable from './BookTable';
 import Search from './Search';
 import NewBook from './NewBook';
+import update from 'immutability-helper';
 
 export default class MyLibrary extends Component {
-  constructor(props){
+  constructor(props, railsContext){
     super(props);
     this.state = {
       books: this.props.books,
@@ -40,7 +41,7 @@ export default class MyLibrary extends Component {
   }
 
   addNewBook(book){
-    const books = React.addons.update(this.state.books, {$push: [book]});
+    const books = update(this.state.books, {$push: [book]});
     this.setState({books: books});
   }
 
@@ -60,13 +61,16 @@ export default class MyLibrary extends Component {
             <NewBook title={this.state.title}
                      author={this.state.author}
                      genre={this.state.genre}
-                     publisher={this.state.publisher} />
+                     publisher={this.state.publisher}
+                     synopsis={this.state.synopsis}
+                     onUserInput={(obj) => this.handleUserInput(obj)}
+                     onFormSubmit={() => this.handleFormSubmit()} />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-12">
-            <BookTable books={this.props.books}/>
+            <BookTable books={this.state.books}/>
           </div>
         </div>
       </div>

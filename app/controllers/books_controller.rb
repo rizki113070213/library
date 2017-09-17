@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   def index
-    @book_props = { books: Book.all.index_by(&:id) }
+    # @book_props = { books: Book.all.index_by(&:id) }
+    @book_props = Book.order('updated_at ASC')
     @book = Book.new
   end
 

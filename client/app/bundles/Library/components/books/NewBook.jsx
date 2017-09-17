@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class NewBook extends Component{
   handleChange(e){
@@ -15,44 +16,54 @@ export default class NewBook extends Component{
 
   render(){
     return(
-      <form className='form-inline'>
+      <form className='form-inline'
+            onSubmit={(e) => this.handleSubmit(e)}
+      >
         <div className='form-group'>
           <input type='text'
                  className='form-control'
                  name='title'
                  placeholder='Title'
-                 ref='title' />
+                 onChange={(e) => this.handleChange(e)} />
         </div>
         <div className='form-group'>
           <input type='text'
                  className='form-control'
                  name='author'
                  placeholder='Author'
-                 ref='author' />
+                 onChange={(e) => this.handleChange(e)} />
         </div>
         <div className='form-group'>
           <input type='text'
                  className='form-control'
                  name='genre'
                  placeholder='Genre'
-                 ref='genre' />
+                 onChange={(e) => this.handleChange(e)} />
         </div>
         <div className='form-group'>
           <input type='text'
                  className='form-control'
                  name='publisher'
                  placeholder='Publisher'
-                 ref='publisher' />
+                 onChange={(e) => this.handleChange(e)} />
         </div>
         <div className='form-group'>
           <input type='text'
                  className='form-control'
                  name='synopsis'
                  placeholder='Synopsis'
-                 ref='synopsis' />
+                 onChange={(e) => this.handleChange(e)} />
         </div>
         <button type='submit' className='btn btn-primary'>Add</button>
       </form>
     );
   }
 }
+
+NewBook.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
+  publisher: PropTypes.string.isRequired,
+  synopsis: PropTypes.string.isRequired,
+};

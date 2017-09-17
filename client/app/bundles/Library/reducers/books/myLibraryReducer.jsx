@@ -4,7 +4,7 @@ import { MY_LIBRARY_FETCH_BOOKS, MY_LIBRARY_SEARCH_BOOKS } from '../../constants
 const books = (state = [], action) => {
   switch (action.type) {
     case MY_LIBRARY_FETCH_BOOKS:
-      return action.payload;
+      return action.payload.data;
     case MY_LIBRARY_SEARCH_BOOKS:
       return action.payload;
     default:
