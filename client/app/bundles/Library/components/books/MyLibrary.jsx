@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import BookTable from './BookTable';
 import Search from './Search';
 import NewBook from './NewBook';
+import { FormErrors } from './FormErrors';
 import update from 'immutability-helper';
 
 export default class MyLibrary extends Component {
@@ -16,6 +17,8 @@ export default class MyLibrary extends Component {
       genre: '',
       publisher: '',
       synopsis: '',
+      formErrors: {},
+      // formValid: false
     }
   }
 
@@ -24,7 +27,11 @@ export default class MyLibrary extends Component {
   }
 
   handleUserInput(obj){
-    this.setState(obj);
+    this.setState(obj, this.validateForm);
+  }
+
+  validateForm(){
+    this.setState({formValid: this.state.title.trim().length > 2});
   }
 
   handleFormSubmit(){
@@ -37,12 +44,21 @@ export default class MyLibrary extends Component {
            {book: book})
            .done((data) => {
              this.addNewBook(data);
+             this.resetFormErrors();
+           })
+           .fail((response) => {
+             console.log(response);
+             this.setState({formErrors: response.responseJSON});
            });
   }
 
   addNewBook(book){
     const books = update(this.state.books, {$push: [book]});
     this.setState({books: books});
+  }
+
+  resetFormErrors(){
+    this.setState({formErrors: {}})
   }
 
   render() {
@@ -63,8 +79,15 @@ export default class MyLibrary extends Component {
                      genre={this.state.genre}
                      publisher={this.state.publisher}
                      synopsis={this.state.synopsis}
+                    //  formValid={this.state.formValid}
                      onUserInput={(obj) => this.handleUserInput(obj)}
                      onFormSubmit={() => this.handleFormSubmit()} />
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className='col-md-12'>
+            <FormErrors formErrors={this.state.formErrors} />
           </div>
         </div>
 

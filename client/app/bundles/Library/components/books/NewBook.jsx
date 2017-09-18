@@ -54,7 +54,11 @@ export default class NewBook extends Component{
                  placeholder='Synopsis'
                  onChange={(e) => this.handleChange(e)} />
         </div>
-        <button type='submit' className='btn btn-primary'>Add</button>
+        <button type='submit'
+                className='btn btn-primary'
+        >
+          Add
+        </button>
       </form>
     );
   }
